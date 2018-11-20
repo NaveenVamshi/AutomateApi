@@ -8,7 +8,7 @@
      
      await page.setUserAgent('Mozilla/5.0 (iPhone; CPU iPhone OS 9_0_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13A404 Safari/601.1')
      
-     await page.goto('http://10.244.1.254:8080/ejbca/enrol/server.jsp');
+     await page.goto('http://10.244.1.228:8080/ejbca/enrol/server.jsp');
      
      await page.focus('#user');  // #user means id of the element .focus is jQuery function is used for focusing.
 
@@ -18,15 +18,19 @@
 
      await page.keyboard.type('test1234');
 
-     await page.focus('#pkcs10req');
+     const inputElement = await page.$('#pkcs10file');
+
+     var check = ['/home/cdac/NodePractise/Puppeteer/Filetest/Test1.txt']; // path of the text File
+     
+     await inputElement.uploadFile(...check); //File upload Spread operator in javascript ... is used
+     
+     await page.click('#pkcs10req');
      
      await page.keyboard.type('This is for checking purpose only');
 
      await page.select('#resulttype', '3') // this is use to select the third element from select
 
-    // await page.focus('#ok');
-
-     await page.click('#ok'); // .click is used for clicking purpose.
+     await page.click('#ok'); // await page.click('#ok'); // .click is used for clicking purpose.
    } 
    catch(e)
    {
